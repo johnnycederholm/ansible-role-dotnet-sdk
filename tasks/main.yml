@@ -1,0 +1,26 @@
+#SPDX-License-Identifier: MIT-0
+---
+- name: Download install script
+  ansible.builtin.get_url:
+    url: https://dot.net/v1/dotnet-install.sh
+    dest: /tmp
+    mode: "0755"
+
+- name: Install .NET SDK {{ version }}
+  ansible.builtin.command: "/tmp/dotnet-install.sh --version {{ version }}"
+
+- name: Add DOTNET_ROOT to .bashrc
+  ansible.builtin.lineinfile:
+    path: "/home/{{ ansible_user }}/.bashrc"
+    line: 'export DOTNET_ROOT=$HOME/.dotnet'
+    state: present
+    create: true
+    owner: "{{ ansible_user }}"
+
+- name: Update PATH in  .bashrc
+  ansible.builtin.lineinfile:
+    path: "/home/{{ ansible_user }}/.bashrc"
+    line: 'export PATH=$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools'
+    state: present
+    create: true
+    owner: "{{ ansible_user }}"
