@@ -19,9 +19,8 @@
 - name: Update apt cache
   ansible.builtin.apt:
     update_cache: true
-    cache_valid_time: 3600
 
-- name: Install .NET SDK {{ version }}
+- name: Install .NET SDK {{ dotnet_version }}
   ansible.builtin.apt:
-    name: dotnet-sdk-{{version}}
+    name: dotnet-sdk-{{ dotnet_version }}
     state: present
