@@ -10,7 +10,10 @@ Example Playbook
       roles:
          - dotnet-sdk
       vars:
-        version: 9.0.306 # latest by default
+        dotnet_versions: 
+          - 8.0
+          - 9.0
+          - 10.0
 
 License
 -------

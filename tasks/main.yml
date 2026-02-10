@@ -20,7 +20,8 @@
   ansible.builtin.apt:
     update_cache: true
 
-- name: Install .NET SDK {{ dotnet_version }}
+- name: Install .NET SDK
   ansible.builtin.apt:
-    name: dotnet-sdk-{{ dotnet_version }}
+    name: dotnet-sdk-{{ item }}
     state: present
+  loop: "{{ dotnet_versions }}"
